@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Task</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+</head>
+<body class="bg-light">
+
+    <div class="container py-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6 col-lg-5">
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-warning text-dark text-center py-3">
+                        <h5 class="mb-0">Edit Task</h5>
+                    </div>
+                    <div class="card-body p-4">
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Task Description</label>
+                                <input type="text" name="title" class="form-control" value="{{ task.title }}" required>
+                            </div>
+
+                            <div class="mb-4">
+                                <label class="form-label fw-bold">Priority</label>
+                                <select name="priority" class="form-select">
+                                    <option value="Low" {% if task.priority == 'Low' %}selected{% endif %}>Low</option>
+                                    <option value="Medium" {% if task.priority == 'Medium' %}selected{% endif %}>Medium</option>
+                                    <option value="High" {% if task.priority == 'High' %}selected{% endif %}>High</option>
+                                </select>
+                            </div>
+
+                            <div class="d-flex justify-content-between">
+                                <a href="{% url 'task_list' %}" class="btn btn-outline-secondary">Cancel</a>
+                                <button type="submit" class="btn btn-warning">Save Changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
